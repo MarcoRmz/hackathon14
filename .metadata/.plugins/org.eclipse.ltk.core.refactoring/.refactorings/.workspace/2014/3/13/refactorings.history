@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 5 resources" deleteContents="false" description="Delete 5 resources" element1="/TwighlightDual" element2="/TwighlightDual-android" element3="/TwighlightDual-desktop" element4="/TwighlightDual-html" element5="/TwighlightDual-robovm" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="5" stamp="1396125176950"/>
+</session>
