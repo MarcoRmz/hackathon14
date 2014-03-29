@@ -3879,3 +3879,31 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.
 
 !ENTRY org.eclipse.core.net 1 0 2014-03-29 14:54:00.815
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.jobs 4 2 2014-03-29 16:47:44.185
+!MESSAGE An internal error occurred during: "Launching Main (2)".
+!STACK 0
+java.lang.RuntimeException: java.lang.OutOfMemoryError: Java heap space
+	at org.robovm.compiler.ClassCompiler.compile(ClassCompiler.java:293)
+	at org.robovm.compiler.AppCompiler.compile(AppCompiler.java:198)
+	at org.robovm.compiler.AppCompiler.compile(AppCompiler.java:216)
+	at org.robovm.eclipse.internal.AppCompilerThread.run(AppCompilerThread.java:60)
+Caused by: java.lang.OutOfMemoryError: Java heap space
+	at java.util.Arrays.copyOf(Arrays.java:3326)
+	at java.lang.AbstractStringBuilder.expandCapacity(AbstractStringBuilder.java:137)
+	at java.lang.AbstractStringBuilder.ensureCapacityInternal(AbstractStringBuilder.java:121)
+	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:421)
+	at java.lang.StringBuilder.append(StringBuilder.java:136)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at org.robovm.compiler.llvm.StructureConstant.toString(StructureConstant.java:47)
+	at org.robovm.compiler.llvm.PackedStructureConstant.toString(PackedStructureConstant.java:31)
+	at java.lang.String.valueOf(String.java:2979)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at org.robovm.compiler.llvm.StructureConstant.toString(StructureConstant.java:47)
+	at java.lang.String.valueOf(String.java:2979)
+	at java.lang.StringBuilder.append(StringBuilder.java:131)
+	at org.robovm.compiler.llvm.Global.getDefinition(Global.java:107)
+	at org.robovm.compiler.llvm.Module.toString(Module.java:88)
+	at org.robovm.compiler.ClassCompiler.compile(ClassCompiler.java:622)
+	at org.robovm.compiler.ClassCompiler.compile(ClassCompiler.java:284)
+	... 3 more
