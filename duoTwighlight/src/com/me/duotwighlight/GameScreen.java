@@ -48,6 +48,7 @@ public class GameScreen implements Screen {
 	Texture boyImageInv;
 	Texture backgroundImage;
 	TextureAtlas atlasBola;
+	TextureAtlas atlasLobo;
 	TextureAtlas atlasBoomerang;
    	Sound dropSound;
    	Music rainMusic;
@@ -57,7 +58,9 @@ public class GameScreen implements Screen {
    	Rectangle boy2;
    	Array<Rectangle> soccerballs;
    	Array<Rectangle> boomerangs;
+   	Array<Rectangle> lobos;
    	long lastSoccer;
+   	long lastLobos;
    	long lastBoomerang;
    	Texture grassImage;
    	Rectangle grass;
@@ -71,6 +74,7 @@ public class GameScreen implements Screen {
    	int countObjs; // count used for knowing which objects show in screen
    	boolean menu;
    	Animation animBola;
+   	Animation animLobo;
    	Animation animBoomerang;
    	float stateTime;
    	
@@ -120,6 +124,7 @@ public class GameScreen implements Screen {
 			atlasBoomerang.dispose();
 			atlasTommy.dispose();
 			atlasBrincando.dispose();
+			atlasLobo.dispose();
 	      soccerImage.dispose();
 	      boomerangImage.dispose();
 	      wolfImage.dispose();
@@ -133,7 +138,16 @@ public class GameScreen implements Screen {
 	}
 	
 
-
+	private void spawnLobos() {
+	      Rectangle lobo = new Rectangle();
+	      lobo.x = 800;
+	      //soccerball.y = MathUtils.random(220, 480-30);
+	      lobo.y = 190;
+	      lobo.width = 30;
+	      lobo.height = 30;
+	      lobos.add(lobo);
+	      lastLobos = TimeUtils.millis();
+	}
 
 	
 	private void spawnSoccerBall() {
@@ -144,7 +158,7 @@ public class GameScreen implements Screen {
 	      soccerball.width = 30;
 	      soccerball.height = 30;
 	      soccerballs.add(soccerball);
-	      lastSoccer = TimeUtils.nanoTime();
+	      lastSoccer = TimeUtils.millis();
 	}
 /*	
 	public void setMenu(boolean s){
@@ -160,15 +174,15 @@ public class GameScreen implements Screen {
 		
 	}
 */
-	private void spawnBoomerangs() {
-	      Rectangle boomerang = new Rectangle();
-	      boomerang.x = 800;
-	      boomerang.y = 340;
-	      boomerang.width = 30;
-	      boomerang.height = 30;
-	      boomerangs.add(boomerang);
-	      lastBoomerang = TimeUtils.nanoTime();
-	}	
+	// private void spawnBoomerangs() {
+	//       Rectangle boomerang = new Rectangle();
+	//       boomerang.x = 800;
+	//       boomerang.y = 340;
+	//       boomerang.width = 30;
+	//       boomerang.height = 30;
+	//       boomerangs.add(boomerang);
+	//       lastBoomerang = TimeUtils.millis();
+	// }	
 
 	@Override
 	public void resize(int width, int height) {
@@ -215,15 +229,15 @@ public class GameScreen implements Screen {
 	      for(Rectangle soccerball: soccerballs) {
 	    	  	batch.draw(animBola.getKeyFrame(stateTime, true), soccerball.x, soccerball.y, 30, 30);
 	    	  	
-	    	  	 
-
-	   	     // batch.draw(bobFrame, soccerball.x, soccerball.y, 30, 30);
-	   	      
+	      }
+	      for(Rectangle lobo: lobos) {
+	    	  	batch.draw(animLobo.getKeyFrame(stateTime, true), lobo.x, lobo.y, 40, 40);
+	    	  	
 	      }
 
-	      for(Rectangle boomerang: boomerangs) {
-	    	  	batch.draw(animBoomerang.getKeyFrame(stateTime, true), boomerang.x, boomerang.y, 30, 30);
-	      }
+	      // for(Rectangle boomerang: boomerangs) {
+	    	 //  	batch.draw(animBoomerang.getKeyFrame(stateTime, true), boomerang.x, boomerang.y, 30, 30);
+	      // }
 	      if(touched){
 	    	  batch.draw(animBrincando.getKeyFrame(stateTime, true), boy.x, boy.y);
 	      }
@@ -246,7 +260,7 @@ public class GameScreen implements Screen {
 	      if(touched){
 	    	  boy.y = boy.y + velocidad;
 	    	  counterGravity++;
-	    	  if(counterGravity>=2.3321){
+	    	  if(counterGravity>=3.3321){
 	    		  velocidad -= 1;
 	    		  counterGravity=0.00;
 	    	  }
@@ -254,7 +268,7 @@ public class GameScreen implements Screen {
 	    	  if(touched2){
 		    	  boy2.y = boy2.y - velocidad2;
 		    	  counterGravity2++;
-		    	  if(counterGravity2>=2.3321){
+		    	  if(counterGravity2>=3.3321){
 		    		  velocidad2 -= 1;
 		    		  counterGravity2=0.00;
 		  }
@@ -282,14 +296,18 @@ public class GameScreen implements Screen {
 	    	  grass2.x = 800;
 	      }
 
-	      // check if we need to create a new soccerball
-	      if(TimeUtils.nanoTime() - lastSoccer > 1000000000){
+	      // check if we need to create a new soccerball MathUtils.random(220, 480-30); //1000000000
+	      if(TimeUtils.millis() - lastSoccer > MathUtils.random(3000,6500)){
 	    	  spawnSoccerBall();
 	      }
-	      //check if we need to create a new boomerang
-	      if(TimeUtils.nanoTime() - lastBoomerang > 1500000000){
-	    	  spawnBoomerangs();
+	      
+	      if(TimeUtils.millis() - lastLobos > MathUtils.random(2000,5500)){
+	    	  spawnLobos();
 	      }
+	      //check if we need to create a new boomerang
+//	      if(TimeUtils.millis() - lastBoomerang > MathUtils.random(2500, 4600)){
+//	    	  spawnBoomerangs();
+//	      }
 
 	      // move the soccerballs, remove any that are beneath the bottom edge of
 	      // the screen or that hit the boy. In the later case we play back
@@ -305,17 +323,31 @@ public class GameScreen implements Screen {
 	         }
 	      }
 
+//	      // move the boomerangs, remove any that are beneath the bottom edge of
+//	      // the screen or that hit the boy. In the later case we play back
+//	      // a sound effect as well.
+//	      Iterator<Rectangle> boomIter = boomerangs.iterator();
+//	      while(boomIter.hasNext()) {
+//	         Rectangle boomerang = boomIter.next();
+//	         boomerang.x -= 150 * Gdx.graphics.getDeltaTime();
+//	         if(boomerang.x + 30 < 0) boomIter.remove();
+//	         if(boomerang.overlaps(boy)) {
+//	            dropSound.play();
+//	            boomIter.remove();
+//	         }
+//	      }
+	      
 	      // move the boomerangs, remove any that are beneath the bottom edge of
 	      // the screen or that hit the boy. In the later case we play back
 	      // a sound effect as well.
-	      Iterator<Rectangle> boomIter = boomerangs.iterator();
-	      while(boomIter.hasNext()) {
-	         Rectangle boomerang = boomIter.next();
-	         boomerang.x -= 150 * Gdx.graphics.getDeltaTime();
-	         if(boomerang.x + 30 < 0) boomIter.remove();
-	         if(boomerang.overlaps(boy)) {
+	      Iterator<Rectangle> loboIter = lobos.iterator();
+	      while(loboIter.hasNext()) {
+	         Rectangle lobo = loboIter.next();
+	         lobo.x -= 150 * Gdx.graphics.getDeltaTime();
+	         if(lobo.x + 30 < 0) loboIter.remove();
+	         if(lobo.overlaps(boy2)) {
 	            dropSound.play();
-	            boomIter.remove();
+	            loboIter.remove();
 	         }
 	      }
 	   }
@@ -331,16 +363,19 @@ public class GameScreen implements Screen {
 	      backgroundImage = new Texture(Gdx.files.internal("resources/images/bkg.png"));
 	      soccerImage = new Texture(Gdx.files.internal("resources/images/ball.gif"));
 	      boomerangImage = new Texture(Gdx.files.internal("resources/images/boomerang.gif"));
-	      wolfImage = new Texture(Gdx.files.internal("resources/images/wolf.gif"));
+	      
 	      boyImage = new Texture(Gdx.files.internal("resources/images/bueno2.png"));
 	      boyImageInv =  new Texture(Gdx.files.internal("resources/images/bueno2Inv.png"));
 	      grassImage = new Texture(Gdx.files.internal("resources/images/piso.png"));
 	      
 	      atlasBola = new TextureAtlas(Gdx.files.internal("resources/images/ball/spriteSheetBall.txt"));
-	      atlasBoomerang = new TextureAtlas(Gdx.files.internal("resources/images/boomerang/sheetBoomerang.txt"));
+	      //atlasBoomerang = new TextureAtlas(Gdx.files.internal("resources/images/boomerang/sheetBoomerang.txt"));
 	      animBola = new Animation(1/15f, atlasBola.getRegions());
-	      animBoomerang = new Animation(1/15f, atlasBoomerang.getRegions());
-	      
+	      //animBoomerang = new Animation(1/15f, atlasBoomerang.getRegions());
+	      atlasLobo = new TextureAtlas(Gdx.files.internal("resources/images/lobo/sheetLobo.txt"));
+	      animLobo = new Animation(1/15f, atlasLobo.getRegions());
+
+
 	      atlasTommy = new TextureAtlas(Gdx.files.internal("resources/images/tommy/sheetTom.txt"));
 	      animTommy = new Animation(0.1f, atlasTommy.getRegions());
 	      
@@ -403,8 +438,10 @@ public class GameScreen implements Screen {
 	      //create the boomerans array and spawn the first boomerang
 	      boomerangs = new Array<Rectangle>();
 	      
+	      lobos =  new Array<Rectangle>();
+	      
 
-	      spawnBoomerangs();
+	      //spawnBoomerangs();
 	      spawnSoccerBall();
 		
 	}

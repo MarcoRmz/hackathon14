@@ -1,0 +1,102 @@
+sheetLobo.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wolf1
+  rotate: false
+  xy: 2, 2
+  size: 223, 116
+  orig: 263, 122
+  offset: 0, 6
+  index: -1
+wolf10
+  rotate: false
+  xy: 227, 2
+  size: 205, 104
+  orig: 263, 122
+  offset: 0, 13
+  index: -1
+wolf11
+  rotate: false
+  xy: 2, 120
+  size: 203, 96
+  orig: 263, 122
+  offset: 9, 15
+  index: -1
+wolf12
+  rotate: false
+  xy: 207, 120
+  size: 205, 100
+  orig: 263, 122
+  offset: 13, 15
+  index: -1
+wolf13
+  rotate: false
+  xy: 2, 222
+  size: 201, 108
+  orig: 263, 122
+  offset: 10, 9
+  index: -1
+wolf14
+  rotate: false
+  xy: 205, 222
+  size: 215, 108
+  orig: 263, 122
+  offset: 1, 9
+  index: -1
+wolf2
+  rotate: false
+  xy: 2, 332
+  size: 243, 112
+  orig: 263, 122
+  offset: 1, 10
+  index: -1
+wolf3
+  rotate: false
+  xy: 247, 332
+  size: 261, 104
+  orig: 263, 122
+  offset: 2, 13
+  index: -1
+wolf4
+  rotate: false
+  xy: 2, 446
+  size: 257, 102
+  orig: 263, 122
+  offset: 6, 16
+  index: -1
+wolf5
+  rotate: false
+  xy: 261, 446
+  size: 245, 106
+  orig: 263, 122
+  offset: 7, 8
+  index: -1
+wolf6
+  rotate: false
+  xy: 2, 554
+  size: 235, 108
+  orig: 263, 122
+  offset: 11, 9
+  index: -1
+wolf7
+  rotate: false
+  xy: 239, 554
+  size: 229, 116
+  orig: 263, 122
+  offset: 4, 0
+  index: -1
+wolf8
+  rotate: false
+  xy: 2, 672
+  size: 213, 98
+  orig: 263, 122
+  offset: 2, 16
+  index: -1
+wolf9
+  rotate: false
+  xy: 217, 672
+  size: 205, 108
+  orig: 263, 122
+  offset: 0, 10
+  index: -1
