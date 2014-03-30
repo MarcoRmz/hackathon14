@@ -36,9 +36,7 @@ public class DuoTwighlight implements ApplicationListener {
    	Texture grassImage;
    	Rectangle grass;
    	Rectangle grass2;
-   	int velocidad;
-   	boolean touched;
-   	double counterGravity; // makes gravity count be slower
+   	
 
 	
 	@Override
@@ -66,7 +64,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      // create a Rectangle to logically represent the boy
 	      boy = new Rectangle();
 	      boy.x = 800 / 2 - 64 / 2; // center the boy horizontally
-	      boy.y = 235; // just above the ground
+	      boy.y = 235; // bottom left corner of the boy is 20 pixels above the bottom screen edge
 	      boy.width = 64;
 	      boy.height = 64;
 	      
@@ -86,9 +84,6 @@ public class DuoTwighlight implements ApplicationListener {
 	      grass2.x = camera.viewportWidth;
 	      grass2.y = camera.viewportHeight/2-30;
 	      
-	      velocidad = 8;
-	      counterGravity = 0.0;
-	      
 	      // create the raindrops array and spawn the first raindrop
 	      raindrops = new Array<Rectangle>();
 	      spawnRaindrop();
@@ -105,8 +100,6 @@ public class DuoTwighlight implements ApplicationListener {
 	      rainMusic.dispose();
 	      batch.dispose();
 	}
-	
-
 
 	@Override
 	public void render() {		
@@ -140,29 +133,11 @@ public class DuoTwighlight implements ApplicationListener {
 
 	      // process user input
 	      if(Gdx.input.isTouched()) {
-//	         Vector3 touchPos = new Vector3();
-//	         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-//	         camera.unproject(touchPos);
-//	         boy.x = touchPos.x - 64 / 2;
-	    	 touched = true;
+	         Vector3 touchPos = new Vector3();
+	         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+	         camera.unproject(touchPos);
+	         boy.x = touchPos.x - 64 / 2;
 	      }
-	      
-	      
-	      // jump of the boy
-	      if(touched){
-	    	  boy.y = boy.y + velocidad;
-	    	  counterGravity++;
-	    	  if(counterGravity>=2.3321){
-	    		  velocidad -= 1;
-	    		  counterGravity=0.00;
-	    	  }
-	      }
-	      if(boy.y < 235){
-	    	  boy.y = 235;
-	    	  touched = false;
-	    	  velocidad = 8;
-	      }
-	      
 	      if(Gdx.input.isKeyPressed(Keys.LEFT)) boy.x -= 200 * Gdx.graphics.getDeltaTime();
 	      if(Gdx.input.isKeyPressed(Keys.RIGHT)) boy.x += 200 * Gdx.graphics.getDeltaTime();
 

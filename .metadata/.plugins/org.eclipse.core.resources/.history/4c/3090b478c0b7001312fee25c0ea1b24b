@@ -152,7 +152,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      if(touched){
 	    	  boy.y = boy.y + velocidad;
 	    	  counterGravity++;
-	    	  if(counterGravity>=2.3321){
+	    	  if(counterGravity>=2.22){
 	    		  velocidad -= 1;
 	    		  counterGravity=0.00;
 	    	  }

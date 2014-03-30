@@ -38,7 +38,7 @@ public class DuoTwighlight implements ApplicationListener {
    	Rectangle grass2;
    	int velocidad;
    	boolean touched;
-   	double counterGravity; // makes gravity count be slower
+   	
 
 	
 	@Override
@@ -86,8 +86,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      grass2.x = camera.viewportWidth;
 	      grass2.y = camera.viewportHeight/2-30;
 	      
-	      velocidad = 8;
-	      counterGravity = 0.0;
+	      velocidad = 20;
 	      
 	      // create the raindrops array and spawn the first raindrop
 	      raindrops = new Array<Rectangle>();
@@ -151,16 +150,12 @@ public class DuoTwighlight implements ApplicationListener {
 	      // jump of the boy
 	      if(touched){
 	    	  boy.y = boy.y + velocidad;
-	    	  counterGravity++;
-	    	  if(counterGravity>=2.3321){
-	    		  velocidad -= 1;
-	    		  counterGravity=0.00;
-	    	  }
+		      velocidad -= 1;
 	      }
 	      if(boy.y < 235){
 	    	  boy.y = 235;
 	    	  touched = false;
-	    	  velocidad = 8;
+	    	  velocidad = 20;
 	      }
 	      
 	      if(Gdx.input.isKeyPressed(Keys.LEFT)) boy.x -= 200 * Gdx.graphics.getDeltaTime();
