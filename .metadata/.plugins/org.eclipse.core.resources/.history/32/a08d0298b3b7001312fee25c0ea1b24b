@@ -149,10 +149,10 @@ public class DuoTwighlight implements ApplicationListener {
 	      grass.x -= 200 * Gdx.graphics.getDeltaTime();
 	      grass2.x -= 200 * Gdx.graphics.getDeltaTime();
 	      
-	      if(grass.getX()<0-camera.viewportWidth){
+	      if(grass.getX()<0-grass.getWidth()){
 	    	  grass.x = 800;
 	      }
-	      if(grass2.getX()<0-camera.viewportWidth){
+	      if(grass2.getX()<0-grass2.getWidth()){
 	    	  grass2.x = 800;
 	      }
 

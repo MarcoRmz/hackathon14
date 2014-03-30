@@ -95,7 +95,6 @@ public class DuoTwighlight implements ApplicationListener {
 	      dropImage.dispose();
 	      bucketImage.dispose();
 	      backgroundImage.dispose();
-	      grassImage.dispose();
 	      dropSound.dispose();
 	      rainMusic.dispose();
 	      batch.dispose();
@@ -122,7 +121,6 @@ public class DuoTwighlight implements ApplicationListener {
 	      batch.begin();
 	      batch.draw(backgroundImage, 0, 0, camera.viewportWidth, camera.viewportHeight);
 	      batch.draw(grassImage, grass.x, grass.y, camera.viewportWidth, 50);
-	      batch.draw(grassImage, grass2.x, grass2.y, camera.viewportWidth, 50);
 	      batch.draw(bucketImage, bucket.x, bucket.y);
 	      //batch.draw(bucketImage, bucket2.x, bucket2.y);
 	      
@@ -149,10 +147,10 @@ public class DuoTwighlight implements ApplicationListener {
 	      grass.x -= 200 * Gdx.graphics.getDeltaTime();
 	      grass2.x -= 200 * Gdx.graphics.getDeltaTime();
 	      
-	      if(grass.getX()<0-camera.viewportWidth){
+	      if((grass.getX()+grass.getWidth())<0){
 	    	  grass.x = 800;
 	      }
-	      if(grass2.getX()<0-camera.viewportWidth){
+	      if(grass2.getX()+grass.getWidth()<0){
 	    	  grass2.x = 800;
 	      }
 
