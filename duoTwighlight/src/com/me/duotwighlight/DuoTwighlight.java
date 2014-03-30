@@ -24,6 +24,7 @@ public class DuoTwighlight implements ApplicationListener {
 	
 	Texture dropImage;
 	Texture bucketImage;
+	Texture backgroundImage;
    	Sound dropSound;
    	Music rainMusic;
    	SpriteBatch batch;
@@ -32,13 +33,17 @@ public class DuoTwighlight implements ApplicationListener {
    	Rectangle bucket2;
    	Array<Rectangle> raindrops;
    	long lastDropTime;
+   	Texture 
 
 	
 	@Override
 	public void create() {		
 		// load the images for the droplet and the bucket, 64x64 pixels each
+	      backgroundImage = new Texture(Gdx.files.internal("resources/images/bkg.png"));
 	      dropImage = new Texture(Gdx.files.internal("resources/droplet.png"));
-	      bucketImage = new Texture(Gdx.files.internal("resources/bucket.png"));
+	      bucketImage = new Texture(Gdx.files.internal("resources/images/bueno2.png"));
+	      
+	  
 
 	      // load the drop sound effect and the rain background "music"
 	      dropSound = Gdx.audio.newSound(Gdx.files.internal("resources/drop.wav"));
@@ -66,7 +71,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      bucket2.y = 180; 
 	      bucket.width = 64;
 	      bucket.height = 64;
-
+	      
 	      // create the raindrops array and spawn the first raindrop
 	      raindrops = new Array<Rectangle>();
 	      spawnRaindrop();
@@ -77,6 +82,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      // dispose of all the native resources
 	      dropImage.dispose();
 	      bucketImage.dispose();
+	      backgroundImage.dispose();
 	      dropSound.dispose();
 	      rainMusic.dispose();
 	      batch.dispose();
@@ -101,8 +107,10 @@ public class DuoTwighlight implements ApplicationListener {
 	      // begin a new batch and draw the bucket and
 	      // all drops
 	      batch.begin();
+	      batch.draw(backgroundImage, 0, 0, camera.viewportWidth, camera.viewportHeight);
 	      batch.draw(bucketImage, bucket.x, bucket.y);
 	      batch.draw(bucketImage, bucket2.x, bucket2.y);
+	      
 	      for(Rectangle raindrop: raindrops) {
 	         batch.draw(dropImage, raindrop.x, raindrop.y);
 	      }
