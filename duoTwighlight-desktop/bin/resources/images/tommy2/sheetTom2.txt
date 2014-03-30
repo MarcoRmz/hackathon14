@@ -1,0 +1,46 @@
+sheetTom2.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tom-inv2
+  rotate: false
+  xy: 2, 2
+  size: 34, 74
+  orig: 50, 74
+  offset: 7, 0
+  index: -1
+tom-inv3
+  rotate: false
+  xy: 38, 2
+  size: 46, 74
+  orig: 50, 74
+  offset: 1, 0
+  index: -1
+tom-inv4
+  rotate: false
+  xy: 2, 78
+  size: 50, 68
+  orig: 50, 74
+  offset: 0, 0
+  index: -1
+tom-inv5
+  rotate: false
+  xy: 54, 78
+  size: 42, 74
+  orig: 50, 74
+  offset: 2, 0
+  index: -1
+tom-inv6
+  rotate: false
+  xy: 2, 154
+  size: 46, 70
+  orig: 50, 74
+  offset: 0, 0
+  index: -1
+tom-inv7
+  rotate: false
+  xy: 50, 154
+  size: 50, 68
+  orig: 50, 74
+  offset: 0, 0
+  index: -1

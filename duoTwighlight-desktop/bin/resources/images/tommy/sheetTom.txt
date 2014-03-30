@@ -1,0 +1,53 @@
+sheetTom.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tom1
+  rotate: false
+  xy: 82, 2
+  size: 42, 72
+  orig: 50, 74
+  offset: 2, 2
+  index: -1
+tom2
+  rotate: false
+  xy: 2, 2
+  size: 34, 74
+  orig: 50, 74
+  offset: 7, 0
+  index: -1
+tom3
+  rotate: false
+  xy: 50, 78
+  size: 46, 74
+  orig: 50, 74
+  offset: 1, 0
+  index: -1
+tom4
+  rotate: false
+  xy: 2, 154
+  size: 50, 68
+  orig: 50, 74
+  offset: 0, 6
+  index: -1
+tom5
+  rotate: false
+  xy: 38, 2
+  size: 42, 74
+  orig: 50, 74
+  offset: 2, 0
+  index: -1
+tom6
+  rotate: false
+  xy: 2, 78
+  size: 46, 70
+  orig: 50, 74
+  offset: 0, 3
+  index: -1
+tom7
+  rotate: false
+  xy: 54, 154
+  size: 50, 68
+  orig: 50, 74
+  offset: 0, 6
+  index: -1

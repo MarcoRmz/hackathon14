@@ -1,0 +1,39 @@
+sheetBrincando.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tom-jump1
+  rotate: false
+  xy: 2, 2
+  size: 42, 74
+  orig: 50, 74
+  offset: 2, 0
+  index: -1
+tom-jump2
+  rotate: false
+  xy: 2, 78
+  size: 42, 72
+  orig: 50, 74
+  offset: 0, 1
+  index: -1
+tom-jump3
+  rotate: false
+  xy: 2, 152
+  size: 40, 68
+  orig: 50, 74
+  offset: 5, 4
+  index: -1
+tom-jump4
+  rotate: false
+  xy: 2, 78
+  size: 42, 72
+  orig: 50, 74
+  offset: 0, 1
+  index: -1
+tom-jump5
+  rotate: false
+  xy: 2, 2
+  size: 42, 74
+  orig: 50, 74
+  offset: 2, 0
+  index: -1

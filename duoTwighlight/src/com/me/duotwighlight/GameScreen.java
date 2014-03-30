@@ -29,6 +29,18 @@ import com.me.duotwighlight.MyInputProcessor;
 
 
 public class GameScreen implements Screen {
+	TextureAtlas atlasTommy;
+	Animation animTommy;
+	
+	TextureAtlas atlasTommy2;
+	Animation animTommy2;
+	
+	Animation animBrincando;
+	TextureAtlas atlasBrincando;
+	
+	Animation animBrincando2;
+	TextureAtlas atlasBrincando2;
+	
 	Texture soccerImage;
 	Texture boomerangImage;
 	Texture wolfImage;
@@ -36,9 +48,7 @@ public class GameScreen implements Screen {
 	Texture boyImageInv;
 	Texture backgroundImage;
 	TextureAtlas atlasBola;
-	TextureRegion arrPelotas;
-	TextureRegion pelotaActual;
-	Texture pelota;
+	TextureAtlas atlasBoomerang;
    	Sound dropSound;
    	Music rainMusic;
    	SpriteBatch batch;
@@ -53,11 +63,15 @@ public class GameScreen implements Screen {
    	Rectangle grass;
    	Rectangle grass2;
    	int velocidad;
+   	int velocidad2;
    	boolean touched;
+   	boolean touched2;
    	double counterGravity; // makes gravity count be slower
+   	double counterGravity2;
    	int countObjs; // count used for knowing which objects show in screen
    	boolean menu;
    	Animation animBola;
+   	Animation animBoomerang;
    	float stateTime;
    	
 //    /** Textures **/
@@ -103,6 +117,9 @@ public class GameScreen implements Screen {
 	public void dispose() {
 	      // dispose of all the native resources
 			atlasBola.dispose();
+			atlasBoomerang.dispose();
+			atlasTommy.dispose();
+			atlasBrincando.dispose();
 	      soccerImage.dispose();
 	      boomerangImage.dispose();
 	      wolfImage.dispose();
@@ -185,12 +202,15 @@ public class GameScreen implements Screen {
 	      
 	      batch.begin();
 	      stateTime += Gdx.graphics.getDeltaTime();
-	      //batch.draw(animBola.getKeyFrame(stateTime, true), 0, 0);
 	      batch.draw(backgroundImage, 0, 0, camera.viewportWidth, camera.viewportHeight);
 	      batch.draw(grassImage, grass.x, grass.y, camera.viewportWidth, 50);
 	      batch.draw(grassImage, grass2.x, grass2.y, camera.viewportWidth, 50);
-	      batch.draw(boyImage, boy.x, boy.y);
-	      batch.draw(boyImageInv, boy2.x, boy2.y);
+	      if(!touched){
+	      		batch.draw(animTommy.getKeyFrame(stateTime, true), boy.x, boy.y);
+	      }
+	      if(!touched2){
+		      	batch.draw(animTommy2.getKeyFrame(stateTime, true), boy2.x, boy2.y);
+	      }
 	      
 	      for(Rectangle soccerball: soccerballs) {
 	    	  	batch.draw(animBola.getKeyFrame(stateTime, true), soccerball.x, soccerball.y, 30, 30);
@@ -202,41 +222,53 @@ public class GameScreen implements Screen {
 	      }
 
 	      for(Rectangle boomerang: boomerangs) {
-	    	  	batch.draw(boomerangImage, boomerang.x, boomerang.y, 30, 30);
+	    	  	batch.draw(animBoomerang.getKeyFrame(stateTime, true), boomerang.x, boomerang.y, 30, 30);
+	      }
+	      if(touched){
+	    	  batch.draw(animBrincando.getKeyFrame(stateTime, true), boy.x, boy.y);
+	      }
+	      if(touched2){
+	    	  batch.draw(animBrincando2.getKeyFrame(stateTime, true), boy2.x, boy2.y);
 	      }
 
 	      batch.end();
 
 	      // process user input
-	      if(Gdx.input.isTouched()) {
-//	         Vector3 touchPos = new Vector3();
-//	         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-//	         camera.unproject(touchPos);
-//	         boy.x = touchPos.x - 50 / 2;
+	      if(Gdx.input.isTouched() && Gdx.input.getY()<(camera.viewportHeight)/2) {
 	    	 touched = true;
+	      }
+	      else if (Gdx.input.isTouched() && Gdx.input.getY()>(camera.viewportHeight/2)){
+	    	  touched2= true;
 	      }
 	      
 	      
 	      // jump of the boy
-	      //if(touched)
 	      if(touched){
 	    	  boy.y = boy.y + velocidad;
-	    	  boy2.y = boy2.y - velocidad;
 	    	  counterGravity++;
 	    	  if(counterGravity>=2.3321){
 	    		  velocidad -= 1;
 	    		  counterGravity=0.00;
 	    	  }
 	      }
+	    	  if(touched2){
+		    	  boy2.y = boy2.y - velocidad2;
+		    	  counterGravity2++;
+		    	  if(counterGravity2>=2.3321){
+		    		  velocidad2 -= 1;
+		    		  counterGravity2=0.00;
+		  }
+		      
+	      }
 	      if(boy.y < 235){
 	    	  boy.y = 235;
 	    	  touched = false;
 	    	  velocidad = 8;
 	      }
-	      if(boy2.y > 160){
-	    	  boy2.y = 160;
-	    	  touched = false;
-	    	  velocidad = 8;
+	      if(boy2.y > 157){
+	    	  boy2.y = 157;
+	    	  velocidad2 = 8;
+	    	  touched2 = false;
 	      }
 	      	      
 	      //grass movement
@@ -286,8 +318,10 @@ public class GameScreen implements Screen {
 	            boomIter.remove();
 	         }
 	      }
+	   }
+	
 		
-	}
+	
 
 	@Override
 	public void show() {
@@ -303,7 +337,21 @@ public class GameScreen implements Screen {
 	      grassImage = new Texture(Gdx.files.internal("resources/images/piso.png"));
 	      
 	      atlasBola = new TextureAtlas(Gdx.files.internal("resources/images/ball/spriteSheetBall.txt"));
+	      atlasBoomerang = new TextureAtlas(Gdx.files.internal("resources/images/boomerang/sheetBoomerang.txt"));
 	      animBola = new Animation(1/15f, atlasBola.getRegions());
+	      animBoomerang = new Animation(1/15f, atlasBoomerang.getRegions());
+	      
+	      atlasTommy = new TextureAtlas(Gdx.files.internal("resources/images/tommy/sheetTom.txt"));
+	      animTommy = new Animation(0.1f, atlasTommy.getRegions());
+	      
+	      atlasTommy2 = new TextureAtlas(Gdx.files.internal("resources/images/tommy2/sheetTom2.txt"));
+	      animTommy2 = new Animation(0.1f, atlasTommy2.getRegions());
+	      
+	      atlasBrincando = new TextureAtlas(Gdx.files.internal("resources/images/tommyBrincando/sheetBrincando.txt"));
+	      animBrincando = new Animation(0.1f, atlasBrincando.getRegions());
+	      
+	      atlasBrincando2 = new TextureAtlas(Gdx.files.internal("resources/images/tommyBrincando2/sheetBrincando2.txt"));
+	      animBrincando2 = new Animation(0.1f, atlasBrincando2.getRegions());
 
 	      // load the drop sound effect and the rain background "music"
 	      dropSound = Gdx.audio.newSound(Gdx.files.internal("resources/drop.wav"));
@@ -328,7 +376,7 @@ public class GameScreen implements Screen {
 	      //boy2
 	      boy2 = new Rectangle();
 	      boy2.x = 130;
-	      boy2.y = 160; 
+	      boy2.y = 157; 
 	      boy2.width = 50;
 	      boy2.height = 74;
 	      
@@ -342,7 +390,9 @@ public class GameScreen implements Screen {
 	      grass2.y = camera.viewportHeight/2-30;
 	      
 	      velocidad = 8;
+	      velocidad2= 8;
 	      counterGravity = 0.0;
+	      counterGravity2 = 0.0;
 	      
 	      countObjs = 1;
 	      //stateTime = 0;
