@@ -156,17 +156,7 @@ public class MainMenu implements Screen {
 	      //batch.draw(boyImage, boy2.x, boy2.y);
 	      
 	      //bobFrame = walkLeftAnimation.getKeyFrame(stateTime, true);
-	      for(Rectangle soccerball: soccerballs) {
-	    	  	batch.draw(soccerImage, soccerball.x, soccerball.y, 30, 30);
-	    	  	 
 
-	   	     // batch.draw(bobFrame, soccerball.x, soccerball.y, 30, 30);
-	   	      
-	      }
-
-	      for(Rectangle boomerang: boomerangs) {
-	    	  	batch.draw(boomerangImage, boomerang.x, boomerang.y, 30, 30);
-	      }
 
 	      batch.end();
 
@@ -202,8 +192,8 @@ public class MainMenu implements Screen {
 	      }
 	      	      
 	      //grass movement
-	      grass.x -= 200 * Gdx.graphics.getDeltaTime();
-	      grass2.x -= 200 * Gdx.graphics.getDeltaTime();
+	      //grass.x -= 200 * Gdx.graphics.getDeltaTime();
+	     // grass2.x -= 200 * Gdx.graphics.getDeltaTime();
 	      
 	      if(grass.getX()<0-camera.viewportWidth){
 	    	  grass.x = 800;
@@ -223,31 +213,31 @@ public class MainMenu implements Screen {
 
 	      // move the soccerballs, remove any that are beneath the bottom edge of
 	      // the screen or that hit the boy. In the later case we play back
-	      // a sound effect as well.
-	      Iterator<Rectangle> iter = soccerballs.iterator();
-	      while(iter.hasNext()) {
-	         Rectangle soccerball = iter.next();
-	         soccerball.x -= 200 * Gdx.graphics.getDeltaTime();
-	         if(soccerball.x + 30 < 0) iter.remove();
-	         if(soccerball.overlaps(boy)) {
-	            dropSound.play();
-	            iter.remove();
-	         }
-	      }
-
-	      // move the boomerangs, remove any that are beneath the bottom edge of
-	      // the screen or that hit the boy. In the later case we play back
-	      // a sound effect as well.
-	      Iterator<Rectangle> boomIter = boomerangs.iterator();
-	      while(boomIter.hasNext()) {
-	         Rectangle boomerang = boomIter.next();
-	         boomerang.x -= 200 * Gdx.graphics.getDeltaTime();
-	         if(boomerang.x + 30 < 0) boomIter.remove();
-	         if(boomerang.overlaps(boy)) {
-	            dropSound.play();
-	            boomIter.remove();
-	         }
-	      }
+//	      // a sound effect as well.
+//	      Iterator<Rectangle> iter = soccerballs.iterator();
+//	      while(iter.hasNext()) {
+//	         Rectangle soccerball = iter.next();
+//	         soccerball.x -= 200 * Gdx.graphics.getDeltaTime();
+//	         if(soccerball.x + 30 < 0) iter.remove();
+//	         if(soccerball.overlaps(boy)) {
+//	            dropSound.play();
+//	            iter.remove();
+//	         }
+//	      }
+//
+//	      // move the boomerangs, remove any that are beneath the bottom edge of
+//	      // the screen or that hit the boy. In the later case we play back
+//	      // a sound effect as well.
+//	      Iterator<Rectangle> boomIter = boomerangs.iterator();
+//	      while(boomIter.hasNext()) {
+//	         Rectangle boomerang = boomIter.next();
+//	         boomerang.x -= 200 * Gdx.graphics.getDeltaTime();
+//	         if(boomerang.x + 30 < 0) boomIter.remove();
+//	         if(boomerang.overlaps(boy)) {
+//	            dropSound.play();
+//	            boomIter.remove();
+//	         }
+//	      }
 		
 	}
 
@@ -270,7 +260,7 @@ public class MainMenu implements Screen {
 
 	      // start the playback of the background music immediately
 	      rainMusic.setLooping(true);
-	      rainMusic.play();
+	      //rainMusic.play();
 
 	      // create the camera and the SpriteBatch
 	      camera = new OrthographicCamera();

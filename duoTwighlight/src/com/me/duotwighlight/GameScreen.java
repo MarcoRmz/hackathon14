@@ -50,8 +50,8 @@ public class GameScreen implements Screen {
 	TextureAtlas atlasBola;
 	TextureAtlas atlasLobo;
 	TextureAtlas atlasBoomerang;
-   	Sound dropSound;
-   	Music rainMusic;
+   	Sound hitSound;
+   	Music gameMusic;
    	SpriteBatch batch;
    	OrthographicCamera camera;
    	Rectangle boy;
@@ -121,20 +121,20 @@ public class GameScreen implements Screen {
 	public void dispose() {
 	      // dispose of all the native resources
 			atlasBola.dispose();
-			atlasBoomerang.dispose();
+			//atlasBoomerang.dispose();
 			atlasTommy.dispose();
 			atlasBrincando.dispose();
 			atlasLobo.dispose();
 	      soccerImage.dispose();
-	      boomerangImage.dispose();
-	      wolfImage.dispose();
+	      //boomerangImage.dispose();
+	      //wolfImage.dispose();
 	      boyImage.dispose();
 	      boyImageInv.dispose();
 	      backgroundImage.dispose();
 	      grassImage.dispose();
-	      dropSound.dispose();
-	      rainMusic.dispose();
-	      batch.dispose();
+	      hitSound.dispose();
+	      gameMusic.dispose();
+	      //batch.dispose();
 	}
 	
 
@@ -248,10 +248,10 @@ public class GameScreen implements Screen {
 	      batch.end();
 
 	      // process user input
-	      if(Gdx.input.isTouched() && (Gdx.input.getY() <  (camera.viewportHeight/2)+60)) {
+	      if((Gdx.input.isTouched(0)||Gdx.input.isTouched(1)) && (Gdx.input.getY() <  (camera.viewportHeight/2)+60)) {
 	    	 touched = true;
 	      }
-	      else if (Gdx.input.isTouched() && (Gdx.input.getY() > camera.viewportHeight/2)){
+	      if ((Gdx.input.isTouched(0)||Gdx.input.isTouched(1) ) && (Gdx.input.getY() > camera.viewportHeight/2)){
 	    	  touched2= true;
 	      }
 	      
@@ -318,8 +318,11 @@ public class GameScreen implements Screen {
 	         soccerball.x -= 150 * Gdx.graphics.getDeltaTime();
 	         if(soccerball.x + 30 < 0) iter.remove();
 	         if(soccerball.overlaps(boy)) {
-	            dropSound.play();
+	            hitSound.play();
 	            iter.remove();
+	            gameMusic.dispose();
+	            //GameScreen.this.dispose();
+	        	((DuoTwighlight) Gdx.app.getApplicationListener()).setScreen(new GameOver());
 	         }
 	      }
 
@@ -334,6 +337,7 @@ public class GameScreen implements Screen {
 //	         if(boomerang.overlaps(boy)) {
 //	            dropSound.play();
 //	            boomIter.remove();
+	      
 //	         }
 //	      }
 	      
@@ -346,8 +350,11 @@ public class GameScreen implements Screen {
 	         lobo.x -= 150 * Gdx.graphics.getDeltaTime();
 	         if(lobo.x + 30 < 0) loboIter.remove();
 	         if(lobo.overlaps(boy2)) {
-	            dropSound.play();
+	            hitSound.play();
 	            loboIter.remove();
+	            gameMusic.dispose();
+	        	//GameScreen.this.dispose();
+	        	((DuoTwighlight) Gdx.app.getApplicationListener()).setScreen(new GameOver());
 	         }
 	      }
 	   }
@@ -357,6 +364,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("resources/game.mp3"));
 		stateTime = 0f;
 		// load the images for the droplet and the boy, ..x.. pixels each
 			menu = false;
@@ -389,12 +397,12 @@ public class GameScreen implements Screen {
 	      animBrincando2 = new Animation(0.1f, atlasBrincando2.getRegions());
 
 	      // load the drop sound effect and the rain background "music"
-	      dropSound = Gdx.audio.newSound(Gdx.files.internal("resources/drop.wav"));
-	      rainMusic = Gdx.audio.newMusic(Gdx.files.internal("resources/rain.mp3"));
+	      hitSound = Gdx.audio.newSound(Gdx.files.internal("resources/hit.wav"));
+	      
 
 	      // start the playback of the background music immediately
-	      rainMusic.setLooping(true);
-	      rainMusic.play();
+	      gameMusic.setLooping(true);
+	      gameMusic.play();
 
 	      // create the camera and the SpriteBatch
 	      camera = new OrthographicCamera();

@@ -1,0 +1,212 @@
+package com.me.duotwighlight;
+
+import java.util.Iterator;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
+
+public class GameOver implements Screen {
+	Texture soccerImage;
+	Texture boomerangImage;
+	Texture wolfImage;
+	Texture boyImage;
+	Texture boyImageInv;
+	Texture backgroundImage;
+   	//Sound dropSound;
+   	Music menuMusic;
+   	Music gameMusic;
+   	SpriteBatch batch;
+   	OrthographicCamera camera;
+   	Rectangle boy;
+   	Rectangle boy2;
+   	Array<Rectangle> soccerballs;
+   	Array<Rectangle> boomerangs;
+   	long lastSoccer;
+   	long lastBoomerang;
+   	Texture grassImage;
+   	Rectangle grass;
+   	Rectangle grass2;
+   	int velocidad;
+   	boolean touched;
+   	double counterGravity; // makes gravity count be slower
+   	int countObjs; // count used for knowing which objects show in screen
+   	
+	@Override
+	public void dispose() {
+	      // dispose of all the native resources
+	      soccerImage.dispose();
+	      boomerangImage.dispose();
+	      wolfImage.dispose();
+	      boyImage.dispose();
+	      boyImageInv.dispose();
+	      backgroundImage.dispose();
+	      grassImage.dispose();
+	      //dropSound.dispose();
+	      //menuMusic.dispose();
+	      batch.dispose();
+	}
+	
+
+
+
+	
+	private void spawnSoccerBall() {
+	      Rectangle soccerball = new Rectangle();
+	      soccerball.x = 800;
+	      //soccerball.y = MathUtils.random(220, 480-30);
+	      soccerball.y = 236;
+	      soccerball.width = 30;
+	      soccerball.height = 30;
+	      soccerballs.add(soccerball);
+	      lastSoccer = TimeUtils.nanoTime();
+	}
+
+	private void spawnBoomerangs() {
+	      Rectangle boomerang = new Rectangle();
+	      boomerang.x = 800;
+	      boomerang.y = 340;
+	      boomerang.width = 30;
+	      boomerang.height = 30;
+	      boomerangs.add(boomerang);
+	      lastBoomerang = TimeUtils.nanoTime();
+	}	
+
+	@Override
+	public void resize(int width, int height) {
+	}
+
+	@Override
+	public void pause() {
+	}
+
+
+
+	@Override
+	public void render(float delta) {
+		
+		if(Gdx.input.isTouched()){
+			GameOver.this.dispose();
+        	((DuoTwighlight) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+			
+		}
+		
+		
+		// clear the screen with a dark blue color. The
+	      // arguments to glClearColor are the red, green
+	      // blue and alpha component in the range [0,1]
+	      // of the color to be used to clear the screen.
+	      Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+	      Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+	      // tell the camera to update its matrices.
+	      camera.update();
+
+	      // tell the SpriteBatch to render in the
+	      // coordinate system specified by the camera.
+	      batch.setProjectionMatrix(camera.combined);
+
+	      // begin a new batch and draw the boy and
+	      // all drops
+	      batch.begin();
+	      batch.draw(backgroundImage, 0, 0, camera.viewportWidth, camera.viewportHeight);
+	      
+
+	      batch.end();
+
+	      
+		
+	}
+
+	@Override
+	public void show() {
+
+		// load the images for the droplet and the boy, ..x.. pixels each
+	      backgroundImage = new Texture(Gdx.files.internal("resources/images/gameover.png"));
+	      soccerImage = new Texture(Gdx.files.internal("resources/images/ball.gif"));
+	      boomerangImage = new Texture(Gdx.files.internal("resources/images/boomerang.gif"));
+	      wolfImage = new Texture(Gdx.files.internal("resources/images/wolf.gif"));
+	      boyImage = new Texture(Gdx.files.internal("resources/images/bueno2.png"));
+	      boyImageInv =  new Texture(Gdx.files.internal("resources/images/bueno2Inv.png"));
+	      grassImage = new Texture(Gdx.files.internal("resources/images/piso.png"));
+	      
+	     
+
+	      // load the drop sound effect and the rain background "music"
+	      //dropSound = Gdx.audio.newSound(Gdx.files.internal("resources/drop.wav"));
+	      gameMusic = Gdx.audio.newMusic(Gdx.files.internal("resources/game.mp3"));
+
+	      // start the playback of the background music immediately
+	     // menuMusic.setLooping(true);
+	      //gameMusic.play();
+
+	      // create the camera and the SpriteBatch
+	      camera = new OrthographicCamera();
+	      camera.setToOrtho(false, 800, 480);
+	      batch = new SpriteBatch();
+
+	      // create a Rectangle to logically represent the boy
+	      boy = new Rectangle();
+	      boy.x = 130; //800 / 2 - 50 / 2; // center the boy horizontally
+	      boy.y = 235; // just above the ground
+	      boy.width = 50;
+	      boy.height = 74;
+	      
+	      //boy2
+	      boy2 = new Rectangle();
+	      boy2.x = 130;
+	      boy2.y = 160; 
+	      boy2.width = 50;
+	      boy2.height = 74;
+	      
+	      //create a grass Rectangle to represent the grass
+	      grass = new Rectangle();
+	      grass.x = 0;
+	      grass.y = camera.viewportHeight/2-30;
+	      
+	      grass2 = new Rectangle();
+	      grass2.x = camera.viewportWidth;
+	      grass2.y = camera.viewportHeight/2-30;
+	      
+	      velocidad = 8;
+	      counterGravity = 0.0;
+	      
+	      countObjs = 1;
+	      //stateTime = 0;
+
+	      // create the soccerballs array and spawn the first soccer ball
+	      soccerballs = new Array<Rectangle>();
+
+	      //create the boomerans array and spawn the first boomerang
+	      boomerangs = new Array<Rectangle>();
+	      
+
+	      spawnBoomerangs();
+	      spawnSoccerBall();
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+}
