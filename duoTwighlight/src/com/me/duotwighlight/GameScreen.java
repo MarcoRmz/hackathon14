@@ -234,10 +234,10 @@ public class GameScreen implements Screen {
 	      batch.end();
 
 	      // process user input
-	      if(Gdx.input.isTouched() && Gdx.input.getY()<(camera.viewportHeight)/2) {
+	      if(Gdx.input.isTouched() && (Gdx.input.getY() <  (camera.viewportHeight/2)+60)) {
 	    	 touched = true;
 	      }
-	      else if (Gdx.input.isTouched() && Gdx.input.getY()>(camera.viewportHeight/2)){
+	      else if (Gdx.input.isTouched() && (Gdx.input.getY() > camera.viewportHeight/2)){
 	    	  touched2= true;
 	      }
 	      
