@@ -25,6 +25,7 @@ public class DuoTwighlight implements ApplicationListener {
 	Texture soccerImage;
 	Texture wolfImage;
 	Texture boyImage;
+	Texture boyImageInv;
 	Texture backgroundImage;
    	Sound dropSound;
    	Music rainMusic;
@@ -50,6 +51,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      soccerImage = new Texture(Gdx.files.internal("resources/images/ball.gif"));
 	      wolfImage = new Texture(Gdx.files.internal("resources/images/wolf.gif"));
 	      boyImage = new Texture(Gdx.files.internal("resources/images/bueno2.png"));
+	      boyImageInv =  new Texture(Gdx.files.internal("resources/images/bueno2Inv.png"));
 	      grassImage = new Texture(Gdx.files.internal("resources/images/piso.png"));
 	  
 
@@ -68,17 +70,17 @@ public class DuoTwighlight implements ApplicationListener {
 
 	      // create a Rectangle to logically represent the boy
 	      boy = new Rectangle();
-	      boy.x = 130; //800 / 2 - 64 / 2; // center the boy horizontally
+	      boy.x = 130; //800 / 2 - 50 / 2; // center the boy horizontally
 	      boy.y = 235; // just above the ground
-	      boy.width = 64;
-	      boy.height = 64;
+	      boy.width = 50;
+	      boy.height = 74;
 	      
-	      //boy2
+	      //boy mirror (boy2)
 	      boy2 = new Rectangle();
-	      boy2.x = 800 /2 -64 / 2;
-	      boy2.y = 180; 
-	      boy.width = 64;
-	      boy.height = 64;
+	      boy2.x = 130;
+	      boy2.y = 160; 
+	      boy2.width = 50;
+	      boy2.height = 74;
 	      
 	      //create a grass Rectangle to represent the grass
 	      grass = new Rectangle();
@@ -105,6 +107,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      soccerImage.dispose();
 	      wolfImage.dispose();
 	      boyImage.dispose();
+	      boyImageInv.dispose();
 	      backgroundImage.dispose();
 	      grassImage.dispose();
 	      dropSound.dispose();
@@ -137,17 +140,11 @@ public class DuoTwighlight implements ApplicationListener {
 	      batch.draw(grassImage, grass.x, grass.y, camera.viewportWidth, 50);
 	      batch.draw(grassImage, grass2.x, grass2.y, camera.viewportWidth, 50);
 	      batch.draw(boyImage, boy.x, boy.y);
+	      batch.draw(boyImageInv, boy2.x, boy2.y);
 	      //batch.draw(boyImage, boy2.x, boy2.y);
 	      
 	      for(Rectangle soccerball: soccerballs) {
-	    	 if(countObjs==1){
-	        	 batch.draw(wolfImage, soccerball.x, soccerball.y, 30, 30);
-	        	 countObjs = 2;
-	        	 }
-	         else{
-	         	 batch.draw(wolfImage, soccerball.x, soccerball.y, 30, 30);
-	         	 countObjs=1;
-	         }
+	    	  	batch.draw(soccerImage, soccerball.x, soccerball.y, 30, 30);
 	      }
 	      batch.end();
 
@@ -156,7 +153,7 @@ public class DuoTwighlight implements ApplicationListener {
 //	         Vector3 touchPos = new Vector3();
 //	         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 //	         camera.unproject(touchPos);
-//	         boy.x = touchPos.x - 64 / 2;
+//	         boy.x = touchPos.x - 50 / 2;
 	    	 touched = true;
 	      }
 	      
@@ -164,6 +161,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      // jump of the boy
 	      if(touched){
 	    	  boy.y = boy.y + velocidad;
+	    	  boy2.y = boy2.y - velocidad;
 	    	  counterGravity++;
 	    	  if(counterGravity>=2.3321){
 	    		  velocidad -= 1;
@@ -175,14 +173,12 @@ public class DuoTwighlight implements ApplicationListener {
 	    	  touched = false;
 	    	  velocidad = 8;
 	      }
-	      
-	      if(Gdx.input.isKeyPressed(Keys.LEFT)) boy.x -= 200 * Gdx.graphics.getDeltaTime();
-	      if(Gdx.input.isKeyPressed(Keys.RIGHT)) boy.x += 200 * Gdx.graphics.getDeltaTime();
-
-	      // make sure the boy stays within the screen bounds
-	      if(boy.x < 0) boy.x = 0;
-	      if(boy.x > 800 - 64) boy.x = 800 - 64;
-	      
+	      if(boy2.y > 160){
+	    	  boy2.y = 160;
+	    	  touched = false;
+	    	  velocidad = 8;
+	      }
+	      	      
 	      //grass movement
 	      grass.x -= 200 * Gdx.graphics.getDeltaTime();
 	      grass2.x -= 200 * Gdx.graphics.getDeltaTime();
