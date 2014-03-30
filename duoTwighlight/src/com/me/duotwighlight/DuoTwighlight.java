@@ -22,7 +22,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class DuoTwighlight implements ApplicationListener {
 	
-	Texture dropImage;
+	Texture soccerImage;
+	Texture wolfImage;
 	Texture boyImage;
 	Texture backgroundImage;
    	Sound dropSound;
@@ -31,7 +32,7 @@ public class DuoTwighlight implements ApplicationListener {
    	OrthographicCamera camera;
    	Rectangle boy;
    	Rectangle boy2;
-   	Array<Rectangle> raindrops;
+   	Array<Rectangle> soccerballs;
    	long lastDropTime;
    	Texture grassImage;
    	Rectangle grass;
@@ -39,13 +40,15 @@ public class DuoTwighlight implements ApplicationListener {
    	int velocidad;
    	boolean touched;
    	double counterGravity; // makes gravity count be slower
+   	int countObjs; // count used for knowing which objects show in screen
 
 	
 	@Override
 	public void create() {		
 		// load the images for the droplet and the boy, ..x.. pixels each
 	      backgroundImage = new Texture(Gdx.files.internal("resources/images/bkg.png"));
-	      dropImage = new Texture(Gdx.files.internal("resources/droplet.png"));
+	      soccerImage = new Texture(Gdx.files.internal("resources/images/ball.gif"));
+	      wolfImage = new Texture(Gdx.files.internal("resources/images/wolf.gif"));
 	      boyImage = new Texture(Gdx.files.internal("resources/images/bueno2.png"));
 	      grassImage = new Texture(Gdx.files.internal("resources/images/piso.png"));
 	  
@@ -65,7 +68,7 @@ public class DuoTwighlight implements ApplicationListener {
 
 	      // create a Rectangle to logically represent the boy
 	      boy = new Rectangle();
-	      boy.x = 800 / 2 - 64 / 2; // center the boy horizontally
+	      boy.x = 130; //800 / 2 - 64 / 2; // center the boy horizontally
 	      boy.y = 235; // just above the ground
 	      boy.width = 64;
 	      boy.height = 64;
@@ -89,15 +92,18 @@ public class DuoTwighlight implements ApplicationListener {
 	      velocidad = 8;
 	      counterGravity = 0.0;
 	      
-	      // create the raindrops array and spawn the first raindrop
-	      raindrops = new Array<Rectangle>();
-	      spawnRaindrop();
+	      countObjs = 1;
+
+	      // create the soccerballs array and spawn the first soccer ball
+	      soccerballs = new Array<Rectangle>();
+	      spawnSoccerBall();
 	}
 
 	@Override
 	public void dispose() {
 	      // dispose of all the native resources
-	      dropImage.dispose();
+	      soccerImage.dispose();
+	      wolfImage.dispose();
 	      boyImage.dispose();
 	      backgroundImage.dispose();
 	      grassImage.dispose();
@@ -133,8 +139,15 @@ public class DuoTwighlight implements ApplicationListener {
 	      batch.draw(boyImage, boy.x, boy.y);
 	      //batch.draw(boyImage, boy2.x, boy2.y);
 	      
-	      for(Rectangle raindrop: raindrops) {
-	         batch.draw(dropImage, raindrop.x, raindrop.y);
+	      for(Rectangle soccerball: soccerballs) {
+	    	 if(countObjs==1){
+	        	 batch.draw(wolfImage, soccerball.x, soccerball.y, 30, 30);
+	        	 countObjs = 2;
+	        	 }
+	         else{
+	         	 batch.draw(wolfImage, soccerball.x, soccerball.y, 30, 30);
+	         	 countObjs=1;
+	         }
 	      }
 	      batch.end();
 
@@ -181,31 +194,32 @@ public class DuoTwighlight implements ApplicationListener {
 	    	  grass2.x = 800;
 	      }
 
-	      // check if we need to create a new raindrop
-	      if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnRaindrop();
+	      // check if we need to create a new soccerball
+	      if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnSoccerBall();
 
-	      // move the raindrops, remove any that are beneath the bottom edge of
+	      // move the soccerballs, remove any that are beneath the bottom edge of
 	      // the screen or that hit the boy. In the later case we play back
 	      // a sound effect as well.
-	      Iterator<Rectangle> iter = raindrops.iterator();
+	      Iterator<Rectangle> iter = soccerballs.iterator();
 	      while(iter.hasNext()) {
-	         Rectangle raindrop = iter.next();
-	         raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-	         if(raindrop.y + 64 < 0) iter.remove();
-	         if(raindrop.overlaps(boy)) {
+	         Rectangle soccerball = iter.next();
+	         soccerball.x -= 200 * Gdx.graphics.getDeltaTime();
+	         if(soccerball.x + 30 < 0) iter.remove();
+	         if(soccerball.overlaps(boy)) {
 	            dropSound.play();
 	            iter.remove();
 	         }
 	      }
 	}
 	
-	private void spawnRaindrop() {
-	      Rectangle raindrop = new Rectangle();
-	      raindrop.x = MathUtils.random(0, 800-64);
-	      raindrop.y = 480;
-	      raindrop.width = 64;
-	      raindrop.height = 64;
-	      raindrops.add(raindrop);
+	private void spawnSoccerBall() {
+	      Rectangle soccerball = new Rectangle();
+	      soccerball.x = 800;
+	      //soccerball.y = MathUtils.random(220, 480-30);
+	      soccerball.y = 236;
+	      soccerball.width = 30;
+	      soccerball.height = 30;
+	      soccerballs.add(soccerball);
 	      lastDropTime = TimeUtils.nanoTime();
 	   }
 
