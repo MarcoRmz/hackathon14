@@ -23,14 +23,14 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class DuoTwighlight implements ApplicationListener {
 	
 	Texture dropImage;
-	Texture boyImage;
+	Texture bucketImage;
 	Texture backgroundImage;
    	Sound dropSound;
    	Music rainMusic;
    	SpriteBatch batch;
    	OrthographicCamera camera;
-   	Rectangle boy;
-   	Rectangle boy2;
+   	Rectangle bucket;
+   	Rectangle bucket2;
    	Array<Rectangle> raindrops;
    	long lastDropTime;
    	Texture grassImage;
@@ -41,10 +41,10 @@ public class DuoTwighlight implements ApplicationListener {
 	
 	@Override
 	public void create() {		
-		// load the images for the droplet and the boy, ..x.. pixels each
+		// load the images for the droplet and the bucket, 64x64 pixels each
 	      backgroundImage = new Texture(Gdx.files.internal("resources/images/bkg.png"));
 	      dropImage = new Texture(Gdx.files.internal("resources/droplet.png"));
-	      boyImage = new Texture(Gdx.files.internal("resources/images/bueno2.png"));
+	      bucketImage = new Texture(Gdx.files.internal("resources/images/bueno2.png"));
 	      grassImage = new Texture(Gdx.files.internal("resources/images/piso.png"));
 	  
 
@@ -61,19 +61,19 @@ public class DuoTwighlight implements ApplicationListener {
 	      camera.setToOrtho(false, 800, 480);
 	      batch = new SpriteBatch();
 
-	      // create a Rectangle to logically represent the boy
-	      boy = new Rectangle();
-	      boy.x = 800 / 2 - 64 / 2; // center the boy horizontally
-	      boy.y = 235; // bottom left corner of the boy is 20 pixels above the bottom screen edge
-	      boy.width = 64;
-	      boy.height = 64;
+	      // create a Rectangle to logically represent the bucket
+	      bucket = new Rectangle();
+	      bucket.x = 800 / 2 - 64 / 2; // center the bucket horizontally
+	      bucket.y = 235; // bottom left corner of the bucket is 20 pixels above the bottom screen edge
+	      bucket.width = 64;
+	      bucket.height = 64;
 	      
-	      //boy2
-	      boy2 = new Rectangle();
-	      boy2.x = 800 /2 -64 / 2;
-	      boy2.y = 180; 
-	      boy.width = 64;
-	      boy.height = 64;
+	      //bucket2
+	      bucket2 = new Rectangle();
+	      bucket2.x = 800 /2 -64 / 2;
+	      bucket2.y = 180; 
+	      bucket.width = 64;
+	      bucket.height = 64;
 	      
 	      //create a grass Rectangle to represent the grass
 	      grass = new Rectangle();
@@ -93,7 +93,7 @@ public class DuoTwighlight implements ApplicationListener {
 	public void dispose() {
 	      // dispose of all the native resources
 	      dropImage.dispose();
-	      boyImage.dispose();
+	      bucketImage.dispose();
 	      backgroundImage.dispose();
 	      grassImage.dispose();
 	      dropSound.dispose();
@@ -117,14 +117,14 @@ public class DuoTwighlight implements ApplicationListener {
 	      // coordinate system specified by the camera.
 	      batch.setProjectionMatrix(camera.combined);
 
-	      // begin a new batch and draw the boy and
+	      // begin a new batch and draw the bucket and
 	      // all drops
 	      batch.begin();
 	      batch.draw(backgroundImage, 0, 0, camera.viewportWidth, camera.viewportHeight);
 	      batch.draw(grassImage, grass.x, grass.y, camera.viewportWidth, 50);
 	      batch.draw(grassImage, grass2.x, grass2.y, camera.viewportWidth, 50);
-	      batch.draw(boyImage, boy.x, boy.y);
-	      //batch.draw(boyImage, boy2.x, boy2.y);
+	      batch.draw(bucketImage, bucket.x, bucket.y);
+	      //batch.draw(bucketImage, bucket2.x, bucket2.y);
 	      
 	      for(Rectangle raindrop: raindrops) {
 	         batch.draw(dropImage, raindrop.x, raindrop.y);
@@ -136,14 +136,14 @@ public class DuoTwighlight implements ApplicationListener {
 	         Vector3 touchPos = new Vector3();
 	         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 	         camera.unproject(touchPos);
-	         boy.x = touchPos.x - 64 / 2;
+	         bucket.x = touchPos.x - 64 / 2;
 	      }
-	      if(Gdx.input.isKeyPressed(Keys.LEFT)) boy.x -= 200 * Gdx.graphics.getDeltaTime();
-	      if(Gdx.input.isKeyPressed(Keys.RIGHT)) boy.x += 200 * Gdx.graphics.getDeltaTime();
+	      if(Gdx.input.isKeyPressed(Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
+	      if(Gdx.input.isKeyPressed(Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
 
-	      // make sure the boy stays within the screen bounds
-	      if(boy.x < 0) boy.x = 0;
-	      if(boy.x > 800 - 64) boy.x = 800 - 64;
+	      // make sure the bucket stays within the screen bounds
+	      if(bucket.x < 0) bucket.x = 0;
+	      if(bucket.x > 800 - 64) bucket.x = 800 - 64;
 	      
 	      //grass movement
 	      grass.x -= 200 * Gdx.graphics.getDeltaTime();
@@ -160,14 +160,14 @@ public class DuoTwighlight implements ApplicationListener {
 	      if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnRaindrop();
 
 	      // move the raindrops, remove any that are beneath the bottom edge of
-	      // the screen or that hit the boy. In the later case we play back
+	      // the screen or that hit the bucket. In the later case we play back
 	      // a sound effect as well.
 	      Iterator<Rectangle> iter = raindrops.iterator();
 	      while(iter.hasNext()) {
 	         Rectangle raindrop = iter.next();
 	         raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
 	         if(raindrop.y + 64 < 0) iter.remove();
-	         if(raindrop.overlaps(boy)) {
+	         if(raindrop.overlaps(bucket)) {
 	            dropSound.play();
 	            iter.remove();
 	         }
