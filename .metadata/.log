@@ -3907,3 +3907,20 @@ Caused by: java.lang.OutOfMemoryError: Java heap space
 	at org.robovm.compiler.ClassCompiler.compile(ClassCompiler.java:622)
 	at org.robovm.compiler.ClassCompiler.compile(ClassCompiler.java:284)
 	... 3 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2014-03-29 17:41:30.938
+!MESSAGE An internal error occurred during: "Launching duoTwighlight-robovm (2)".
+!STACK 0
+java.lang.IllegalArgumentException: No signing identity found matching 'iPhone Developer'
+	at org.robovm.compiler.target.ios.SigningIdentity.find(SigningIdentity.java:67)
+	at org.robovm.compiler.target.ios.IOSTarget.init(IOSTarget.java:552)
+	at org.robovm.compiler.config.Config.build(Config.java:511)
+	at org.robovm.compiler.config.Config.access$4100(Config.java:74)
+	at org.robovm.compiler.config.Config$Builder.build(Config.java:1013)
+	at org.robovm.eclipse.internal.IOSDeviceLaunchConfigurationDelegate.configure(IOSDeviceLaunchConfigurationDelegate.java:74)
+	at org.robovm.eclipse.internal.AbstractLaunchConfigurationDelegate.launch(AbstractLaunchConfigurationDelegate.java:143)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:855)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:704)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1047)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1251)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)

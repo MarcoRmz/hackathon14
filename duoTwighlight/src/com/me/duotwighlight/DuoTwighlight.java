@@ -29,6 +29,7 @@ public class DuoTwighlight implements ApplicationListener {
    	SpriteBatch batch;
    	OrthographicCamera camera;
    	Rectangle bucket;
+   	Rectangle bucket2;
    	Array<Rectangle> raindrops;
    	long lastDropTime;
 
@@ -55,7 +56,14 @@ public class DuoTwighlight implements ApplicationListener {
 	      // create a Rectangle to logically represent the bucket
 	      bucket = new Rectangle();
 	      bucket.x = 800 / 2 - 64 / 2; // center the bucket horizontally
-	      bucket.y = 20; // bottom left corner of the bucket is 20 pixels above the bottom screen edge
+	      bucket.y = 230; // bottom left corner of the bucket is 20 pixels above the bottom screen edge
+	      bucket.width = 64;
+	      bucket.height = 64;
+	      
+	      //bucket2
+	      bucket2 = new Rectangle();
+	      bucket2.x = 800 /2 -64 / 2;
+	      bucket2.y = 180; 
 	      bucket.width = 64;
 	      bucket.height = 64;
 
@@ -94,6 +102,7 @@ public class DuoTwighlight implements ApplicationListener {
 	      // all drops
 	      batch.begin();
 	      batch.draw(bucketImage, bucket.x, bucket.y);
+	      batch.draw(bucketImage, bucket2.x, bucket2.y);
 	      for(Rectangle raindrop: raindrops) {
 	         batch.draw(dropImage, raindrop.x, raindrop.y);
 	      }
