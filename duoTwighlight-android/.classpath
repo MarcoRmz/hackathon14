@@ -8,5 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="/duoTwighlight/libs/gdx.jar" sourcepath="/duoTwighlight/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="/Users/Henry/Developer/adt-bundle-mac-x86_64-20131030/libgdx-0.9.9/extensions/gdx-tools/gdx-tools.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

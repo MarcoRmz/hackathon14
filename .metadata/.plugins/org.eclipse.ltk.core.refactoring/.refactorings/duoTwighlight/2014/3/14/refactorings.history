@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.me.duotwighlight.MainMenuScreen&apos; to &apos;GameScreen&apos;&#x0A;- Original project: &apos;duoTwighlight&apos;&#x0A;- Original element: &apos;com.me.duotwighlight.MainMenuScreen&apos;&#x0A;- Renamed element: &apos;com.me.duotwighlight.GameScreen&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;MainMenuScreen&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.me.duotwighlight{MainMenuScreen.java[MainMenuScreen" matchStrategy="1" name="GameScreen" qualified="false" references="true" similarDeclarations="false" stamp="1396188202951" textual="false" version="1.0"/>
+</session>

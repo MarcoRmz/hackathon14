@@ -1,0 +1,105 @@
+package com.me.duotwighlight;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+
+public class MainMenuScreen implements Screen {
+	
+	Texture soccerImage;
+	Texture boomerangImage;
+	Texture wolfImage;
+	Texture boyImage;
+	Texture boyImageInv;
+	Texture backgroundImage;
+	Texture menuImage;
+   	Sound dropSound;
+   	Music rainMusic;
+   	SpriteBatch batch;
+   	SpriteBatch spriteBatch;
+   	OrthographicCamera camera;
+   	Rectangle boy;
+   	Rectangle boy2;
+   	Array<Rectangle> soccerballs;
+   	Array<Rectangle> boomerangs;
+   	long lastSoccer;
+   	long lastBoomerang;
+   	Texture grassImage;
+   	Rectangle grass;
+   	Rectangle grass2;
+   	int velocidad;
+   	boolean touched;
+   	double counterGravity; // makes gravity count be slower
+   	int countObjs; // count used for knowing which objects show in screen
+   	boolean menu;
+  	 
+
+		DuoTwighlight game; // Note it's "MyGame" not "Game"
+
+
+     
+     @Override
+     public void render(float delta) {
+	      Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+	      Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+      // tell the camera to update its matrices.
+      camera.update();
+      if(Gdx.input.isTouched()) {
+    	 // setScreen(pauseScreen);
+    	  menu = false;
+	  }
+
+      // tell the SpriteBatch to render in the
+      // coordinate system specified by the camera.
+      batch.setProjectionMatrix(camera.combined);
+             // update and draw stuff
+    	// Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    	 spriteBatch.begin();
+
+    	 spriteBatch.draw(menuImage, 0, 0, camera.viewportWidth, camera.viewportHeight);
+//          if (Gdx.input.justTouched()) // use your own criterion here
+//              game.setScreen(game.pauseScreen);
+    	 spriteBatch.end();
+     }
+
+
+    @Override
+     public void resize(int width, int height) {
+     }
+
+
+    @Override
+     public void show() {
+    	spriteBatch = new SpriteBatch();
+    	menuImage = new Texture(Gdx.files.internal("resources/images/menu.png"));
+     }
+
+
+    @Override
+     public void hide() {
+          // called when current screen changes from this to a different screen
+     }
+
+
+    @Override
+     public void pause() {
+     }
+
+
+    @Override
+     public void resume() {
+     }
+
+
+    @Override
+     public void dispose() {
+             // never called automatically
+     }
+}

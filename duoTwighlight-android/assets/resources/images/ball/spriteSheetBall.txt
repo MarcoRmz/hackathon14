@@ -1,0 +1,109 @@
+spriteSheetBall.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ball1
+  rotate: false
+  xy: 2, 386
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball10
+  rotate: false
+  xy: 2, 322
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball11
+  rotate: false
+  xy: 2, 258
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball12
+  rotate: false
+  xy: 130, 194
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball13
+  rotate: false
+  xy: 66, 194
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball14
+  rotate: false
+  xy: 2, 194
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball15
+  rotate: false
+  xy: 130, 130
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball2
+  rotate: false
+  xy: 66, 130
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball3
+  rotate: false
+  xy: 2, 130
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball4
+  rotate: false
+  xy: 130, 66
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball5
+  rotate: false
+  xy: 66, 66
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball6
+  rotate: false
+  xy: 2, 66
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball7
+  rotate: false
+  xy: 130, 2
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball8
+  rotate: false
+  xy: 66, 2
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+ball9
+  rotate: false
+  xy: 2, 2
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
