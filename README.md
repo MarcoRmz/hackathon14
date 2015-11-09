@@ -1,4 +1,4 @@
-## FB Hackathon 2014
+## GameJam Hackathon 2014
 @Tec de Monterrey
 
 ## Description
